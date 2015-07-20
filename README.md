@@ -5,7 +5,7 @@ JSON.sortify
 
 A deterministic version of `JSON.stringify` that sorts object keys alphabetically.
 
-Inspired by [http://stackoverflow.com/questions/8931967/is-there-a-deterministic-equivalent-of-json-stringify]()
+Inspired by [http://stackoverflow.com/questions/8931967/is-there-a-deterministic-equivalent-of-json-stringify](http://stackoverflow.com/questions/8931967/is-there-a-deterministic-equivalent-of-json-stringify)
 
 ## Install
 
