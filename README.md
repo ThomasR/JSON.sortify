@@ -1,7 +1,7 @@
 JSON.sortify
 =====
-<!-- [![Test Coverage](https://codeclimate.com/github/ThomasR/JSON.sortify/badges/coverage.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify) -->
-
+[![Test Coverage](https://codeclimate.com/github/ThomasR/JSON.sortify/badges/coverage.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
+[![Code Climate](https://codeclimate.com/github/ThomasR/JSON.sortify/badges/gpa.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
 
 A deterministic version of `JSON.stringify` that sorts object keys alphabetically.
 
