@@ -34,7 +34,8 @@ describe('JSON.sortify', function () {
             var fixtures = [
                 {a:1, b:true, c:"ok", d:null},
                 {a:.1, b:undefined, c:function () {}}, '{"a":0.1}',
-                {' ': '"', 'null': 'null', 'undefined': '\t'}
+                {' ': '"', 'null': 'null', 'undefined': '\t'},
+                {'"\n\t\\:' : ''}
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
