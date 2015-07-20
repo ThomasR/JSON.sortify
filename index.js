@@ -19,8 +19,18 @@ JSON.sortify = JSON.sortify || (function (JsonStringify) {
     var sortKeys = function (o) {
         // {b:1,a:2} -> {a:2,b:1}
         if (Object.prototype.toString.call(o) === '[object Object]') {
-            // make use of the fact that all JS engines sort an object's keys chronologically when stringifying
-            return Object.keys(o).sort().reduce(function (result, key) {
+             // make use of the fact that all JS engines sort an object's keys chronologically when stringifying
+             var sortedKeys = Object.keys(o).sort(function (a, b) {
+                // …but v8 is giving us a hard time by making exceptions for numeric keys
+                if (/^(0|[1-9][0-9]*)$/.test(a)) {
+                    if (/^(0|[1-9][0-9]*)$/.test(b)) {
+                        return a - b;
+                    }
+                    return -1;
+                }
+                return (a > b) ? 1 : (a < b) ? -1 : 0;
+            });
+            return sortedKeys.reduce(function (result, key) {
                 result[key] = sortKeys(o[key]);
                 return result;
             }, {});
