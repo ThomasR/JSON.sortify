@@ -10,7 +10,7 @@ Inspired by [http://stackoverflow.com/questions/8931967/is-there-a-deterministic
 ## Install
 
 ```bash
-$ npm install JSON.sortify
+$ npm install json.sortify
 ```
 
 ## Usage
