@@ -1,0 +1,35 @@
+{
+    "name": "JSON.sortify",
+    "description": "A deterministic version of JSON.stringify that sorts object keys alphabetically.",
+    "version": "0.0.1",
+    "author": {
+        "name" : "Thomas Rosenau",
+        "email" : "thomasr@fantasymail.de",
+        "url" : "http://thomas-rosenau.de/"
+    },
+    "keywords": [
+        "JSON",
+        "stringify",
+        "sort"
+    ],
+    "homepage": "https://github.com/ThomasR/JSON.sortify",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ThomasR/JSON.sortify"
+    },
+    "bugs": {
+        "url": "https://github.com/ThomasR/JSON.sortify/issues"
+    },
+    "license": "Apache-2.0",
+    "main": "index.js",
+    "devDependencies": {
+        "istanbul": "^0.x",
+        "mocha": "^1.x",
+        "should": "^4.x"
+    },
+    "scripts": {
+        "test": "mocha --check-leaks --bail --reporter spec test/",
+        "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --check-leaks --reporter dot test/",
+        "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --check-leaks --reporter spec test/"
+    }
+}
