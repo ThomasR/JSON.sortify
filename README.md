@@ -13,7 +13,7 @@ $ npm install JSON.sortify
 
 ## Usage
 ```
-require('JSON.sortify'); // will inject the JSON.sortify() function
+require('json.sortify'); // will inject the JSON.sortify() function
 ```
 
 

@@ -1,5 +1,5 @@
 {
-    "name": "JSON.sortify",
+    "name": "json.sortify",
     "description": "A deterministic version of JSON.stringify that sorts object keys alphabetically.",
     "version": "0.0.1",
     "author": {
