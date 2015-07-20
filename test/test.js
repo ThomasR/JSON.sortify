@@ -78,8 +78,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:2, c:{d:3}}}, []],
                 [{a:{b:2, a:{a:3, c:2}}}, ['a']],
                 [{a:1, b:'foo'}, function (key, value) { return typeof value == 'string' ? value + '!!!' : value; }],
-                [{a:{b:2, a:{a:3, c:2}}}, function (key, value) { return undefined; }],
-
+                [{a:{b:2, a:{a:3, c:2}}}, function () {}]
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture[0], fixture[1]), JSON.stringify(fixture[0], fixture[1]));

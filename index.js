@@ -14,23 +14,23 @@
 *    limitations under the License.
 */
 
-JSON.sortify = JSON.sortify || (function (JsonStringify) {
+JSON.sortify = JSON.sortify || (function (jsonStringify) {
 
     var sortKeys = function (o) {
         // {b:1,a:2} -> {a:2,b:1}
         if (Object.prototype.toString.call(o) === '[object Object]') {
-             // make use of the fact that all JS engines sort an object's keys chronologically when stringifying
-             var sortedKeys = Object.keys(o).sort(function (a, b) {
-                // …but v8 is giving us a hard time by making exceptions for numeric keys
-                if (/^(0|[1-9][0-9]*)$/.test(a)) {
-                    if (/^(0|[1-9][0-9]*)$/.test(b)) {
-                        return a - b;
-                    }
-                    return -1;
+            // make use of the fact that all JS engines sort an object's keys chronologically when stringifying
+            // with the exception of v8, which always puts numeric keys first
+            var numeric = [];
+            var nonNumeric = [];
+            Object.keys(o).forEach(function (key) {
+                if (/^(0|[1-9][0-9]*)$/.test(key)) {
+                    numeric.push(+key);
+                } else {
+                    nonNumeric.push(key);
                 }
-                return (a > b) ? 1 : (a < b) ? -1 : 0;
             });
-            return sortedKeys.reduce(function (result, key) {
+            return numeric.sort().concat(nonNumeric.sort()).reduce(function (result, key) {
                 result[key] = sortKeys(o[key]);
                 return result;
             }, {});
@@ -42,14 +42,11 @@ JSON.sortify = JSON.sortify || (function (JsonStringify) {
 
     return function (value, replacer, space) {
         // replacer, toJSON(), cyclic references and other stuff is better handled by native stringifier
-        var native = JsonStringify(value, replacer, 0);
+        var native = jsonStringify(value, replacer, 0);
         if (!native || native[0] !== '{' && native[0] !== '[') { // if value is not an Object or Array
             return native;
         }
         var cleanObj = JSON.parse(native);
-        return JsonStringify(sortKeys(cleanObj), null, space);
+        return jsonStringify(sortKeys(cleanObj), null, space);
     };
 })(JSON.stringify.bind(JSON));
-
-
-// JSON.stringify({a:undefined,b:function(){},x:1,c:2,d:5,z:'foo',' a':'a',d:[{f:{h:2,e:1}},null,'2']}, function (key,val) {return typeof val == 'string' ? val+'!!!' : val;}, 4)
