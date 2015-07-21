@@ -35,7 +35,7 @@ describe('JSON.sortify', function () {
                 {a:1, b:true, c:"ok", d:null},
                 {a:.1, b:undefined, c:function () {}}, '{"a":0.1}',
                 {' ': '"', 'null': 'null', 'undefined': '\t'},
-                {'"\n\t\\:' : ''}
+                {'"\n\t\\:': ''}
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
@@ -64,9 +64,9 @@ describe('JSON.sortify', function () {
 
         it('should handle toJSON', function () {
             var fixtures = [
-                {toJSON: function () { return 'Banana!';}},
-                {a: 1, b:2, toJSON: function () { return null;}},
-                {a: {b:1, toJSON: function () { return 'x';}}, c:3}
+                {toJSON:function () { return 'Banana!';  }},
+                {a: 1, b:2, toJSON:function () { return null; }},
+                {a: {b:1, toJSON:function () { return 'x'; }}, c:3}
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
@@ -95,7 +95,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, 11],
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, -1],
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, '\t'],
-                [{a:{b:2, c:[{d:3}, 4, 'hello']}}, 'gooble'],
+                [{a:{b:2, c:[{d:3}, 4, 'hello']}}, 'garbage'],
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, 'too long, must be shortened']
             ];
             fixtures.forEach(function (fixture) {
@@ -107,7 +107,7 @@ describe('JSON.sortify', function () {
             var fixtures = [
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, function (key, value) { return typeof value == 'string' ? value + '!!!' : value; }, 4],
                 [{a:{a:2, c:[{d:3}, 4, 'hello']}}, ['a'], '\t'],
-                [{a:{b:2, c:[{d:3}, 4, 'hello']}}, function (key, value) { return value; },'gooble']
+                [{a:{b:2, c:[{d:3}, 4, 'hello']}}, function (key, value) { return value; }, 'garbage ']
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify.apply(JSON, fixture), JSON.stringify.apply(JSON, fixture));
@@ -136,8 +136,8 @@ describe('JSON.sortify', function () {
             var fixtures = [
                 [{c:1, b:2, a:3}, '{"a":3,"b":2,"c":1}'],
                 [{c:1, 42:2, a:3, 0:4, '':5, '00':6, 5:7}, '{"0":4,"5":7,"42":2,"":5,"00":6,"a":3,"c":1}'],
-                [{c:1, b:2, a:{y:1,z:2,x:3}}, '{"a":{"x":3,"y":1,"z":2},"b":2,"c":1}'],
-                [{c:1, b:['foo', 2, {a:{y:1,z:2,x:3}}]}, '{"b":["foo",2,{"a":{"x":3,"y":1,"z":2}}],"c":1}']
+                [{c:1, b:2, a:{y:1, z:2, x:3}}, '{"a":{"x":3,"y":1,"z":2},"b":2,"c":1}'],
+                [{c:1, b:['foo', 2, {a:{y:1, z:2, x:3}}]}, '{"b":["foo",2,{"a":{"x":3,"y":1,"z":2}}],"c":1}']
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture[0]), fixture[1]);
@@ -147,20 +147,20 @@ describe('JSON.sortify', function () {
         it('should sort keys and handle three arguments', function () {
             var fixtures = [
                 [
-                    {x:1,b:2, a:3},
+                    {x:1, b:2, a:3},
                     ['a', 'b', 'c'],
                     2,
                     '{\n  "a": 3,\n  "b": 2\n}'
                 ],
                 [
-                    {x:1,b:{toJSON:function () {return 'b';}}, a:3},
+                    {x:1, b:{toJSON:function () { return 'b'; }}, a:3},
                     ['a', 'b', 'c'],
                     '••',
                     '{\n••"a": 3,\n••"b": "b"\n}'
                 ],
                 [
-                    {a:undefined,b:function(){},x:1,c:2,0:3,5:5,11:11,' d ':5,z:'foo',aa:'a',d:[{f:{h:2,e:1}},null,'2']},
-                    function (key,val) {return typeof val == 'string' ? val+'!!!' : val;},
+                    {a:undefined, b:function(){}, x:1, c:2, 0:3, 5:5, 11:11, ' d ':5, z:'foo', aa:'a', d:[{f:{h:2, e:1}}, null, '2']},
+                    function (key,val) { return typeof val == 'string' ? val+'!!!' : val; },
                     4,
                     '{\n    "0": 3,\n    "5": 5,\n    "11": 11,\n    " d ": 5,\n    "aa": "a!!!",\n    "c": 2,\n    "d": [\n        {\n            "f": {\n                "e": 1,\n                "h": 2\n            }\n        },\n        null,\n        "2!!!"\n    ],\n    "x": 1,\n    "z": "foo!!!"\n}'
                 ]
