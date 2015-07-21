@@ -16,11 +16,20 @@
 
 JSON.sortify = JSON.sortify || (function (jsonStringify) {
 
-    var sortKeys = function (o) {
-        // {b:1,a:2} -> {a:2,b:1}
+        /**
+        * Create a “sorted” version of an object.
+        *
+        * JS engines internally keep track of an object's keys in the order of
+        * creation time, i.e. {a:1,b:2} is treated differently from {b:2,a:1}.
+        * That difference can be seen when JSON.stringify is called on that object.
+        * This function normalizes any kind of object by rearranging the keys in
+        * alphabetical order (numerical keys first, since v8 does so, and there's
+        * nothing we can do about it).
+        * @param {*} o The object to be sorted
+        */
+        var sortKeys = function (o) {
         if (Object.prototype.toString.call(o) === '[object Object]') {
-            // make use of the fact that all JS engines sort an object's keys chronologically when stringifying
-            // with the exception of v8, which always puts numeric keys first
+            // put numeric keys first
             var numeric = [];
             var nonNumeric = [];
             Object.keys(o).forEach(function (key) {
@@ -30,8 +39,9 @@ JSON.sortify = JSON.sortify || (function (jsonStringify) {
                     nonNumeric.push(key);
                 }
             });
+            // do the rearrangement
             return numeric.sort().concat(nonNumeric.sort()).reduce(function (result, key) {
-                result[key] = sortKeys(o[key]);
+                result[key] = sortKeys(o[key]); // recurse!
                 return result;
             }, {});
         } else if (Array.isArray(o)) {
@@ -41,7 +51,9 @@ JSON.sortify = JSON.sortify || (function (jsonStringify) {
     };
 
     return function (value, replacer, space) {
-        // replacer, toJSON(), cyclic references and other stuff is better handled by native stringifier
+        // replacer, toJSON(), cyclic references and other stuff is better handled by native stringifier.
+        // So we do JSON.stringify(sortKeys( JSON.parse(JSON.stringify()) )).
+        // This approach is slightly slower but much safer than a manual stringification.
         var native = jsonStringify(value, replacer, 0);
         if (!native || native[0] !== '{' && native[0] !== '[') { // if value is not an Object or Array
             return native;
