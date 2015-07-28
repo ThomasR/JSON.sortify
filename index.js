@@ -16,18 +16,18 @@
 
 JSON.sortify = JSON.sortify || (function (jsonStringify) {
 
-        /**
-        * Create a “sorted” version of an object.
-        *
-        * JS engines internally keep track of an object's keys in the order of
-        * creation time, i.e. {a:1,b:2} is treated differently from {b:2,a:1}.
-        * That difference can be seen when JSON.stringify is called on that object.
-        * This function normalizes any kind of object by rearranging the keys in
-        * alphabetical order (numerical keys first, since v8 does so, and there's
-        * nothing we can do about it).
-        * @param {*} o The object to be sorted
-        */
-        var sortKeys = function (o) {
+    /**
+    * Create a “sorted” version of an object.
+    *
+    * JS engines internally keep track of an object's keys in the order of
+    * creation time, i.e. {a:1,b:2} is treated differently from {b:2,a:1}.
+    * That difference can be seen when JSON.stringify is called on that object.
+    * This function normalizes any kind of object by rearranging the keys in
+    * alphabetical order (numerical keys first, since v8 does so, and there's
+    * nothing we can do about it).
+    * @param {*} o The object to be sorted
+    */
+    var sortKeys = function (o) {
         if (Object.prototype.toString.call(o) === '[object Object]') {
             // put numeric keys first
             var numeric = [];
