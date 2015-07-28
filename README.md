@@ -1,26 +1,33 @@
 JSON.sortify
 =====
-[![npm version](https://badge.fury.io/js/json.sortify.svg)](http://badge.fury.io/js/json.sortify)
-[![Build Status](https://travis-ci.org/ThomasR/JSON.sortify.svg?branch=master)](https://travis-ci.org/ThomasR/JSON.sortify)
-[![Test Coverage](https://codeclimate.com/github/ThomasR/JSON.sortify/badges/coverage.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
-[![Code Climate](https://codeclimate.com/github/ThomasR/JSON.sortify/badges/gpa.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
+[![npm version](https://img.shields.io/npm/v/json.sortify.svg)](https://www.npmjs.com/package/json.sortify)
+[![Build Status](https://img.shields.io/travis/ThomasR/JSON.sortify.svg)](https://travis-ci.org/ThomasR/JSON.sortify)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/ThomasR/JSON.sortify.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
+[![Code Climate](https://img.shields.io/codeclimate/github/ThomasR/JSON.sortify.svg)](https://codeclimate.com/github/ThomasR/JSON.sortify)
 
 A deterministic version of `JSON.stringify` that sorts object keys alphabetically.
 
 Inspired by [http://stackoverflow.com/questions/8931967/is-there-a-deterministic-equivalent-of-json-stringify](http://stackoverflow.com/questions/8931967/is-there-a-deterministic-equivalent-of-json-stringify)
 
 
-## Install
+## Install as an NPM module
 
 ```bash
 $ npm install json.sortify
 ```
 
-
 ## Usage
+
+### In Node.js
 
 ```JavaScript
 require('json.sortify'); // will inject the JSON.sortify() function
+```
+
+### In HTML
+
+```html
+<script src="JSON.sortify/index.js"> <!-- will inject the JSON.sortify() function -->
 ```
 
 `JSON.sortify` can be used exactly like `JSON.stringify`
@@ -88,6 +95,4 @@ JSON.sortify({b:1,foo:'woot',a:3}, function (key, value) {
 ```
 
 
-## License
-
-[Apache-2.0](LICENSE)
+[![](https://img.shields.io/github/license/ThomasR/JSON.sortify.svg)](LICENSE)
