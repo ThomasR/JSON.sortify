@@ -7,9 +7,13 @@ describe('JSON.sortify', function () {
         it('should define JSON.sortify', function () {
             JSON.sortify.should.be.a.function;
         });
+
+        it('should take precisely three arguments', function () {
+            assert.equal(JSON.sortify.length, 3);
+        });
     });
 
-    describe('functionality', function () {
+    describe('compatibility', function () {
         it('should stringify simple values', function () {
             var fixtures = [
                 1,
@@ -64,7 +68,7 @@ describe('JSON.sortify', function () {
 
         it('should handle toJSON', function () {
             var fixtures = [
-                {toJSON:function () { return 'Banana!';  }},
+                {toJSON:function () { return 'Banana!'; }},
                 {a: 1, b:2, toJSON:function () { return null; }},
                 {a: {b:1, toJSON:function () { return 'x'; }}, c:3}
             ];
@@ -131,7 +135,9 @@ describe('JSON.sortify', function () {
                 assert.throws(JSON.sortify.bind(JSON, fixture), TypeError);
             });
         });
+    });
 
+    describe('sortification', function () {
         it('should sort keys', function () {
             var fixtures = [
                 [{c:1, b:2, a:3}, '{"a":3,"b":2,"c":1}'],
