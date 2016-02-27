@@ -8,6 +8,6 @@ node_js:
 matrix:
   fast_finish: true
 script: "npm run-script test-travis"
-after_script: "npm install codeclimate-test-reporter && codeclimate < ./coverage/lcov.info"
+after_script: "npm install codeclimate-test-reporter && codeclimate-test-reporter < ./coverage/lcov.info"
 notifications:
   email: false
