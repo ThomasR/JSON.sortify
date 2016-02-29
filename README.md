@@ -95,4 +95,4 @@ JSON.sortify({b:1,foo:'woot',a:3}, function (key, value) {
 ```
 
 
-[![](https://img.shields.io/github/license/ThomasR/JSON.sortify.svg)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/github/license/ThomasR/JSON.sortify.svg)](LICENSE)
