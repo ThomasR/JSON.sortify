@@ -19,6 +19,7 @@ describe('JSON.sortify', function () {
                 1,
                 .234,
                 Infinity,
+                NaN,
                 null,
                 true,
                 false,
@@ -26,6 +27,7 @@ describe('JSON.sortify', function () {
                 'undefined',
                 '',
                 function bar() {},
+                Symbol(),
                 /abc/
             ];
             fixtures.forEach(function (fixture) {
@@ -70,7 +72,8 @@ describe('JSON.sortify', function () {
             var fixtures = [
                 {toJSON:function () { return 'Banana!'; }},
                 {a: 1, b:2, toJSON:function () { return null; }},
-                {a: {b:1, toJSON:function () { return 'x'; }}, c:3}
+                {a: {b:1, toJSON:function () { return 'x'; }}, c:3},
+                {a: {b:1, toJSON:function (key) { return 'x' + key + 'y'; }}}
             ];
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
