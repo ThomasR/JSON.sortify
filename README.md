@@ -16,22 +16,51 @@ Inspired by [http://stackoverflow.com/questions/8931967/is-there-a-deterministic
 $ npm install json.sortify
 ```
 
-## Usage
-
-### In Node.js
+### Usage
 
 ```JavaScript
-require('json.sortify'); // will inject the JSON.sortify() function
+let jsonSortify = require('json.sortify');
 ```
 
-### In HTML
+or
+
+```JavaScript
+JSON.sortify = require('json.sortify');
+```
+
+or even
+```JavaScript
+JSON.stringify = require('json.sortify');
+```
+
+JSON.sortify is fully compatible with JSON.stringify, so you can overwrite the native implementation without any problems.
+
+## In HTML
+
+Download [dist/JSON.sortify.js](JSON.sortify.js) and save it to your server.
 
 ```html
-<script src="JSON.sortify/index.js"> <!-- will inject the JSON.sortify() function -->
+<script src="JSON.sortify.js"></script> <!-- will inject the JSON.sortify() function -->
 ```
 
-`JSON.sortify` can be used exactly like `JSON.stringify`
+`JSON.sortify` can be used exactly like `JSON.stringify`. As mentioned above, you can overwrite JSON.stringify if you want to:
 
+```html
+<script src="JSON.sortify"></script>
+<script>JSON.stringify = JSON.sortify</script>
+```
+
+### AMD module
+
+You can also use JSON.sortify as an AMD module:
+
+```JavaScript
+JSON.stringify = require('json.sortify');
+```
+
+## How to use
+
+Use `JSON.sortify` exactly like `JSON.stringify`. Refer to [MDN:JSON/stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) for details.
 
 ### Basic
 
@@ -46,10 +75,10 @@ JSON.sortify({a:1,b:2});
 ### Sorting
 
 ```JavaScript
-JSON.sortify({b:1,a:2});
+JSON.sortify({b:1,a:2,c:3,5:4});
 ```
 ```Text
-{"a":2,"b":1}
+{"5":4,"a":2,"b":1,"c":3}
 ```
 
 
@@ -66,7 +95,7 @@ JSON.sortify({b:1,a:2}, null, 2);
 ```
 
 
-### Key Whitelist:
+### Whitelisting of object keys:
 
 ```JavaScript
 JSON.sortify({b:1,foo:2,a:3}, ['a', 'foo'], 4);

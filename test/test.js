@@ -1,10 +1,10 @@
-require('../');
+JSON.sortify = require('../');
 var assert = require('assert');
 var should = require('should');
 
 describe('JSON.sortify', function () {
     describe('interface', function () {
-        it('should define JSON.sortify', function () {
+        it('should define a function', function () {
             JSON.sortify.should.be.a.function;
         });
 
@@ -29,7 +29,7 @@ describe('JSON.sortify', function () {
                 function bar() {},
                 /abc/
             ];
-            if (typeof global.Symbol != 'undefined') {
+            if (typeof global.Symbol !== 'undefined') {
                 fixtures.push(Symbol());
             }
             fixtures.forEach(function (fixture) {
