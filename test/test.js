@@ -27,9 +27,11 @@ describe('JSON.sortify', function () {
                 'undefined',
                 '',
                 function bar() {},
-                Symbol(),
                 /abc/
             ];
+            if (typeof global.Symbol != 'undefined') {
+                fixtures.push(Symbol());
+            }
             fixtures.forEach(function (fixture) {
                 assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
             });
