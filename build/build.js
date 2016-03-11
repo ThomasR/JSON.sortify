@@ -27,5 +27,7 @@ let code = `
 
 let transformed = babel.transform(code, babelOpts);
 
-try { fs.mkdirSync(`${baseDir}/dist`, parseInt('0775', 8)); } catch (e) {}
+try {
+    fs.mkdirSync(`${baseDir}/dist`, parseInt('0775', 8));
+} catch (ignore) {}
 fs.writeFileSync(`${baseDir}/dist/JSON.sortify.js`, transformed.code);
