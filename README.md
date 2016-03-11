@@ -46,7 +46,7 @@ Download [JSON.sortify.js](dist/JSON.sortify.js) and save it to your server.
 `JSON.sortify` can be used exactly like `JSON.stringify`. As mentioned above, you can overwrite JSON.stringify if you want to:
 
 ```html
-<script src="JSON.sortify"></script>
+<script src="JSON.sortify.js"></script>
 <script>JSON.stringify = JSON.sortify</script>
 ```
 
