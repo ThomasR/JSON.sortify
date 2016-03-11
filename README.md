@@ -37,7 +37,7 @@ JSON.sortify is fully compatible with JSON.stringify, so you can overwrite the n
 
 ## In HTML
 
-Download [dist/JSON.sortify.js](JSON.sortify.js) and save it to your server.
+Download [JSON.sortify.js](dist/JSON.sortify.js) and save it to your server.
 
 ```html
 <script src="JSON.sortify.js"></script> <!-- will inject the JSON.sortify() function -->
