@@ -1,13 +1,15 @@
 {
-    "node": true,
-    "esnext": true,
     "bitwise": true,
     "camelcase": true,
     "curly": true,
+    "esnext": true,
     "immed": true,
     "newcap": true,
     "noarg": true,
+    "node": true,
+    "strict": false,
     "undef": true,
     "unused": "vars",
-    "strict": false
+
+    "-W100": true
 }
