@@ -55,7 +55,7 @@ Download [JSON.sortify.js](dist/JSON.sortify.js) and save it to your server.
 You can also use JSON.sortify as an AMD module:
 
 ```JavaScript
-JSON.stringify = require('json.sortify');
+require(['json.sortify'], function (jsonSortify) { … });
 ```
 
 ## How to use
