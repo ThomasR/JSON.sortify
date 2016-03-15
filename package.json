@@ -47,7 +47,7 @@
     "test:browser": "npm run test:browser:inject && npm run test:browser:amd",
     "test:browser:inject": "mocha-phantomjs test/test.html",
     "test:browser:amd": "mocha-phantomjs test/test-amd.html",
-    "test:cov": "istanbul cover _mocha -- --check-leaks --reporter dot test/",
-    "test:travis": "npm run test:browser && istanbul cover _mocha --report lcovonly -- --check-leaks --reporter spec test/"
+    "test:cov": "istanbul cover node_modules/mocha/bin/_mocha -- --check-leaks --reporter dot test/",
+    "test:travis": "npm run test:browser && istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --check-leaks --reporter spec test/"
   }
 }
