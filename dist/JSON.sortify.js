@@ -1,4 +1,4 @@
-'use strict';var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};(function(name,factory){if(typeof module!='undefined')module.exports=factory();else if(typeof define=='function'&&_typeof(define.amd)=='object')define('json.sortify',factory);else JSON.sortify=definition();})(undefined,function(){ /*!
+'use strict';var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol?"symbol":typeof obj;};(function(name,factory){if(typeof module!='undefined')module.exports=factory();else if(typeof define=='function'&&_typeof(define.amd)=='object')define('json.sortify',factory);else JSON.sortify=factory();})(undefined,function(){ /*!
 *    Copyright 2015-2016 Thomas Rosenau
 *
 *    Licensed under the Apache License, Version 2.0 (the "License");

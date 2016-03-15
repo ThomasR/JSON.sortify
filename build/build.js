@@ -20,7 +20,7 @@ let code = `
     else if (typeof define == 'function' && typeof define.amd == 'object')
         define('json.sortify', factory);
     else
-        JSON.sortify = definition();
+        JSON.sortify = factory();
 })(this, function() {
     ${factory.replace(/\bmodule\s*\.\s*exports\s*=/, 'return ')}
 });`;
