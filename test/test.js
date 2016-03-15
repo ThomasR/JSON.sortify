@@ -188,4 +188,25 @@ describe('JSON.sortify', function () {
 
         });
     });
+
+    describe('interoperability / interchangeability', function () {
+        var fixtures = [
+            1,
+            [1, {a: 1, b: 2, c: [1, 2]}],
+            {a: {b:1, toJSON:function (key) { return 'x' + key + 'y'; }}}
+        ];
+        it('should not depend on the “JSON” scope', function () {
+            var jsonSortify = JSON.sortify;
+            fixtures.forEach(function (fixture) {
+                expect(jsonSortify(fixture)).toEqual(JSON.stringify(fixture));
+            });
+        });
+        it('should allow to overwrite “JSON.stringify”', function () {
+            var jsonStringifyOriginal = JSON.stringify.bind(JSON);
+            JSON.stringify = JSON.sortify;
+            fixtures.forEach(function (fixture) {
+                expect(JSON.stringify(fixture)).toEqual(jsonStringifyOriginal(fixture));
+            });
+        });
+    });
 });

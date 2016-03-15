@@ -14,26 +14,27 @@
 <script src="../node_modules/expect/umd/expect.min.js"></script>
 
 <script> // very basic AMD loader mock
-(function () {
-    var modules = {};
-    window.define = function (id, factory) {
-        modules[id] = factory();
-    };
-    define.amd = {};
+    (function () {
+        var modules = {};
+        window.define = function (id, factory) {
+            modules[id] = factory();
+        };
+        define.amd = {};
 
-    window.require = function (dependencies, callback) {
-        var resolved = [];
-        for (var i = 0; i < dependencies.length; i++) {
-            resolved.push(modules[dependencies[i]]);
-        }
-        callback.apply(this, resolved);
-    };
-})();
+        window.require = function (dependencies, callback) {
+            var resolved = [];
+            for (var i = 0; i < dependencies.length; i++) {
+                resolved.push(modules[dependencies[i]]);
+            }
+            callback.apply(this, resolved);
+        };
+    })();
 </script>
 <script src="../dist/JSON.sortify.js"></script>
 <script src="test.js"></script>
 
 <script>
+    console.info('with AMD mock');
     require(['json.sortify'], function (jsonSortify) {
         JSON.sortify = jsonSortify;
         mocha.run();
