@@ -1,7 +1,7 @@
 {
     "name": "json.sortify",
     "description": "A deterministic version of JSON.stringify that sorts object keys alphabetically.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "author": {
         "name" : "Thomas Rosenau",
         "email" : "thomasr@fantasymail.de",

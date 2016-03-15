@@ -30,7 +30,9 @@ JSON.sortify = JSON.sortify || (function (jsonStringify) {
                     nonNumeric.push(key);
                 }
             });
-            return numeric.sort().concat(nonNumeric.sort()).reduce(function (result, key) {
+            return numeric.sort(function (a, b) {
+                return a - b;
+            }).concat(nonNumeric.sort()).reduce(function (result, key) {
                 result[key] = sortKeys(o[key]);
                 return result;
             }, {});
