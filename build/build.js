@@ -15,9 +15,7 @@ Object.assign(babelOpts, {
 
 let code = `
 (function(name, factory) {
-    if (typeof module != 'undefined')
-        module.exports = factory();
-    else if (typeof define == 'function' && typeof define.amd == 'object')
+    if (typeof define == 'function' && typeof define.amd == 'object')
         define('json.sortify', factory);
     else
         JSON.sortify = factory();

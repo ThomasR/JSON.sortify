@@ -1,15 +1,21 @@
-JSON.sortify = require('../');
-var assert = require('assert');
-var should = require('should');
+if (typeof module !== 'undefined' && module.exports) {
+    console.info('Running in NodeJS');
+    JSON.sortify = require('../');
+    var expect = require('expect');
+} else { // Browser
+    console.info('Running in browser');
+    global = window;
+    // libs provided via <script>
+}
 
 describe('JSON.sortify', function () {
     describe('interface', function () {
         it('should define a function', function () {
-            JSON.sortify.should.be.a.function;
+            expect(JSON.sortify).toBeA(Function);
         });
 
         it('should take precisely three arguments', function () {
-            assert.equal(JSON.sortify.length, 3);
+            expect(JSON.sortify.length).toBe(3);
         });
     });
 
@@ -33,7 +39,7 @@ describe('JSON.sortify', function () {
                 fixtures.push(Symbol());
             }
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
+                expect(JSON.sortify(fixture)).toEqual(JSON.stringify(fixture));
             });
 
         });
@@ -46,7 +52,7 @@ describe('JSON.sortify', function () {
                 {'"\n\t\\:': ''}
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
+                expect(JSON.sortify(fixture)).toEqual(JSON.stringify(fixture));
             });
         });
 
@@ -56,7 +62,7 @@ describe('JSON.sortify', function () {
                 [.1, undefined, function () {}]
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
+                expect(JSON.sortify(fixture)).toEqual(JSON.stringify(fixture));
             });
         });
 
@@ -66,7 +72,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:1}, b:[{a:1}, {b:{c:[2, null]}}]}]
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
+                expect(JSON.sortify(fixture)).toEqual(JSON.stringify(fixture));
             });
         });
 
@@ -78,7 +84,7 @@ describe('JSON.sortify', function () {
                 {a: {b:1, toJSON:function (key) { return 'x' + key + 'y'; }}}
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture), JSON.stringify(fixture));
+                expect(JSON.sortify(fixture)).toEqual(JSON.stringify(fixture));
             });
         });
 
@@ -92,7 +98,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:2, a:{a:3, c:2}}}, function () {}]
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture[0], fixture[1]), JSON.stringify(fixture[0], fixture[1]));
+                expect(JSON.sortify(fixture[0], fixture[1])).toEqual(JSON.stringify(fixture[0], fixture[1]));
             });
         });
 
@@ -108,7 +114,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, 'too long, must be shortened']
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture[0], null, fixture[1]), JSON.stringify(fixture[0], null, fixture[1]));
+                expect(JSON.sortify(fixture[0], null, fixture[1])).toEqual(JSON.stringify(fixture[0], null, fixture[1]));
             });
         });
 
@@ -119,7 +125,7 @@ describe('JSON.sortify', function () {
                 [{a:{b:2, c:[{d:3}, 4, 'hello']}}, function (key, value) { return value; }, 'garbage ']
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify.apply(JSON, fixture), JSON.stringify.apply(JSON, fixture));
+                expect(JSON.sortify.apply(JSON, fixture)).toEqual(JSON.stringify.apply(JSON, fixture));
             });
         });
 
@@ -137,7 +143,7 @@ describe('JSON.sortify', function () {
             fixtures[3].a.push(fixtures[3]);
             fixtures[4].a.push(fixtures[4].a);
             fixtures.forEach(function (fixture) {
-                assert.throws(JSON.sortify.bind(JSON, fixture), TypeError);
+                expect(JSON.sortify.bind(JSON, fixture)).toThrow(TypeError);
             });
         });
     });
@@ -151,7 +157,7 @@ describe('JSON.sortify', function () {
                 [{c:1, b:['foo', 2, {a:{y:1, z:2, x:3}}]}, '{"b":["foo",2,{"a":{"x":3,"y":1,"z":2}}],"c":1}']
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture[0]), fixture[1]);
+                expect(JSON.sortify(fixture[0])).toEqual(fixture[1]);
             });
         });
 
@@ -177,7 +183,7 @@ describe('JSON.sortify', function () {
                 ]
             ];
             fixtures.forEach(function (fixture) {
-                assert.equal(JSON.sortify(fixture[0], fixture[1], fixture[2]), fixture[3]);
+                expect(JSON.sortify(fixture[0], fixture[1], fixture[2])).toEqual(fixture[3]);
             });
 
         });

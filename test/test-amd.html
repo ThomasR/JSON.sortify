@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"><!-- encoding must be set for mocha's special characters to render properly -->
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css"/>
+</head>
+<body>
+
+<div id="mocha"></div>
+<script src="../node_modules/mocha/mocha.js"></script>
+<script>
+    mocha.ui('bdd');
+</script>
+<script src="../node_modules/expect/umd/expect.min.js"></script>
+
+<script> // very basic AMD loader mock
+(function () {
+    var modules = {};
+    window.define = function (id, factory) {
+        modules[id] = factory();
+    };
+    define.amd = {};
+
+    window.require = function (dependencies, callback) {
+        var resolved = [];
+        for (var i = 0; i < dependencies.length; i++) {
+            resolved.push(modules[dependencies[i]]);
+        }
+        callback.apply(this, resolved);
+    };
+})();
+</script>
+<script src="../dist/JSON.sortify.js"></script>
+<script src="test.js"></script>
+
+<script>
+    require(['json.sortify'], function (jsonSortify) {
+        JSON.sortify = jsonSortify;
+        mocha.run();
+    });
+</script>
+
+</body>
+</html>
