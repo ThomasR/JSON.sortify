@@ -9,17 +9,17 @@ let factory = fs.readFileSync(`${baseDir}/lib/index.js`, 'utf-8');
 
 let babelOpts = JSON.parse(fs.readFileSync(`${baseDir}/package.json`, 'utf-8')).babel;
 Object.assign(babelOpts, {
-    compact: true,
+    minified: true,
     shouldPrintComment: c => c[0] === '!'
 });
 
 let code = `
-(function(name, factory) {
-    if (typeof define == 'function' && typeof define.amd == 'object')
-        define('json.sortify', factory);
+(function(factory) {
+    if (typeof define == "function" && typeof define.amd == "object")
+        define("json.sortify", factory);
     else
         JSON.sortify = factory();
-})(this, function() {
+})(function() {
     ${factory.replace(/\bmodule\s*\.\s*exports\s*=/, 'return ')}
 });`;
 
