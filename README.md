@@ -43,6 +43,12 @@ Download [JSON.sortify.js](dist/JSON.sortify.js) and save it to your server.
 <script src="JSON.sortify.js"></script> <!-- will inject the JSON.sortify() function -->
 ```
 
+Or, if you're using [bower](http://bower.io/), type `bower install json.sortify`.
+
+```html
+<script src="bower_components/json.sortify/dist/JSON.sortify.js"></script>
+```
+
 `JSON.sortify` can be used exactly like `JSON.stringify`. As mentioned above, you can overwrite JSON.stringify if you want to:
 
 ```html
