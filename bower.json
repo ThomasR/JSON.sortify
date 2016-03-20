@@ -14,7 +14,10 @@
     "hash"
   ],
   "homepage": "https://github.com/ThomasR/JSON.sortify",
-  "moduleType": [],
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
   "ignore": [
     "**/.*",
     "node_modules",
