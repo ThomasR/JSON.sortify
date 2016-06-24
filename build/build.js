@@ -16,7 +16,7 @@ Object.assign(babelOpts, {
 let code = `
 (function(factory) {
     if (typeof define == "function" && typeof define.amd == "object")
-        define("json.sortify", factory);
+        define(factory);
     else
         JSON.sortify = factory();
 })(function() {
