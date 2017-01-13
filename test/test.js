@@ -189,6 +189,64 @@ describe('JSON.sortify', function () {
         });
     });
 
+    describe('custom sorting', function () {
+        var fixInput = {
+            'name' : 'John',
+            'age' : 55,
+            'sex' : 'M',
+            42: {
+                'something': 'foo',
+                'true': 'false',
+                'all': 'good'
+            },
+            111: 'one-eleven'
+        };
+
+        it('should accept a function as the fourth parameter', function () {
+            var fixtures = [
+                [function (a, b) { // keys containing 'a' come first
+                    if (/a/.test(a)) {
+                        if (/a/.test(b)) {
+                            return a < b ? -1 : 1;
+                        }
+                        return -1;
+                    }
+                    if (/a/.test(b)) {
+                        return 1;
+                    }
+                    return a < b ? -1 : 1;
+                }, '{"42":{"all":"good","something":"foo","true":"false"},"111":"one-eleven","age":55,"name":"John","sex":"M"}'],
+                [function (a, b) { // sort by length of key
+                    if (a.length == b.length) {
+                        return a < b ? -1 : 1;
+                    }
+                    return a.length - b.length;
+                }, '{"42":{"all":"good","true":"false","something":"foo"},"111":"one-eleven","age":55,"sex":"M","name":"John"}']
+
+            ];
+            fixtures.forEach(function (fixture) {
+                expect(JSON.sortify(fixInput, null, null, fixture[0])).toEqual(fixture[1]);
+            });
+        });
+
+        it('should accept a key list as the fourth parameter', function () {
+            var fixtures = [
+                [['age', 'name', 'sex'], '{"42":{"all":"good","something":"foo","true":"false"},"111":"one-eleven","age":55,"name":"John","sex":"M"}'],
+                [['name', 'age', 'sex'], '{"42":{"all":"good","something":"foo","true":"false"},"111":"one-eleven","name":"John","age":55,"sex":"M"}'],
+                [['name', 'sex', 'age'], '{"42":{"all":"good","something":"foo","true":"false"},"111":"one-eleven","name":"John","sex":"M","age":55}'],
+                [['name'], '{"42":{"all":"good","something":"foo","true":"false"},"111":"one-eleven","name":"John","age":55,"sex":"M"}'],
+                [['name', 'true'], '{"42":{"true":"false","all":"good","something":"foo"},"111":"one-eleven","name":"John","age":55,"sex":"M"}']
+            ];
+            fixtures.forEach(function (fixture) {
+                expect(JSON.sortify(fixInput, null, null, fixture[0])).toEqual(fixture[1]);
+            });
+        });
+
+        it('should prohibit numeric keys in custom order', function () {
+            expect(JSON.sortify.bind(JSON, fixInput, null, null, ['a', 1])).toThrow(TypeError);
+        });
+    });
+
     describe('interoperability / interchangeability', function () {
         var fixtures = [
             1,

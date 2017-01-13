@@ -1,7 +1,7 @@
 {
   "name": "json.sortify",
   "description": "A deterministic version of JSON.stringify that sorts object keys alphabetically.",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -74,8 +74,8 @@
     "babel-plugin-transform-es2015-unicode-regex": "^6.5.0",
     "babel-plugin-transform-regenerator": "^6.6.5",
     "expect": "^1.15.2",
-    "istanbul": "^0.3.17",
-    "mocha": "^2.2.5",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
     "mocha-phantomjs": "^4.0.2"
   },
   "scripts": {
