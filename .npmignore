@@ -1,5 +1,5 @@
-.idea/
-node_modules/
-coverage/
-.travis.yml
-.*ignore
+*
+!dist/
+!LICENSE
+!README.md
+!*.json

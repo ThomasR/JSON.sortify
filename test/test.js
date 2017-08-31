@@ -1,9 +1,10 @@
 if (typeof module !== 'undefined' && module.exports) {
     console.info('Running in NodeJS');
-    JSON.sortify = require('../');
+    JSON.sortify = require('../src');
     var expect = require('expect');
 } else { // Browser
     console.info('Running in browser');
+    //eslint-disable-next-line
     global = window;
     // libs provided via <script>
 }
@@ -36,6 +37,7 @@ describe('JSON.sortify', function () {
                 /abc/
             ];
             if (typeof global.Symbol !== 'undefined') {
+                //eslint-disable-next-line no-undef
                 fixtures.push(Symbol());
             }
             fixtures.forEach(function (fixture) {
@@ -46,7 +48,7 @@ describe('JSON.sortify', function () {
 
         it('should stringify simple objects', function () {
             var fixtures = [
-                {a:1, b:true, c:"ok", d:null},
+                {a:1, b:true, c:'ok', d:null},
                 {a:.1, b:undefined, c:function () {}}, '{"a":0.1}',
                 {' ': '"', 'null': 'null', 'undefined': '\t'},
                 {'"\n\t\\:': ''}
@@ -58,7 +60,7 @@ describe('JSON.sortify', function () {
 
         it('should stringify simple arrays', function () {
             var fixtures = [
-                [1, true, "ok", null],
+                [1, true, 'ok', null],
                 [.1, undefined, function () {}]
             ];
             fixtures.forEach(function (fixture) {
@@ -176,8 +178,8 @@ describe('JSON.sortify', function () {
                     '{\n••"a": 3,\n••"b": "b"\n}'
                 ],
                 [
-                    {a:undefined, b:function(){}, x:1, c:2, 0:3, 5:5, 11:11, ' d ':5, z:'foo', aa:'a', d:[{f:{h:2, e:1}}, null, '2']},
-                    function (key,val) { return typeof val == 'string' ? val+'!!!' : val; },
+                    {a:undefined, b:function () {}, x:1, c:2, 0:3, 5:5, 11:11, ' d ':5, z:'foo', aa:'a', d:[{f:{h:2, e:1}}, null, '2']},
+                    function (key, val) { return typeof val == 'string' ? val + '!!!' : val; },
                     4,
                     '{\n    "0": 3,\n    "5": 5,\n    "11": 11,\n    " d ": 5,\n    "aa": "a!!!",\n    "c": 2,\n    "d": [\n        {\n            "f": {\n                "e": 1,\n                "h": 2\n            }\n        },\n        null,\n        "2!!!"\n    ],\n    "x": 1,\n    "z": "foo!!!"\n}'
                 ]

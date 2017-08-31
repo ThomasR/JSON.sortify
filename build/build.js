@@ -2,12 +2,13 @@
 
 const babel = require('babel-core');
 const fs = require('fs');
+const path = require('path');
 
-const baseDir = `${__dirname}/..`;
+const baseDir = path.join(__dirname, '..');
 
-let factory = fs.readFileSync(`${baseDir}/lib/index.js`, 'utf-8');
+let factory = fs.readFileSync(path.join(baseDir, 'src', 'index.js'), 'utf-8');
 
-let babelOpts = JSON.parse(fs.readFileSync(`${baseDir}/package.json`, 'utf-8')).babel;
+let babelOpts = JSON.parse(fs.readFileSync(path.join(baseDir, 'package.json'), 'utf-8')).babel;
 Object.assign(babelOpts, {
     minified: true,
     shouldPrintComment: c => c[0] === '!'
@@ -15,7 +16,9 @@ Object.assign(babelOpts, {
 
 let code = `
 (function(factory) {
-    if (typeof define == "function" && typeof define.amd == "object")
+    if (typeof module !== 'undefined' && module.exports)
+        module.exports = factory();
+    else if (typeof define == "function" && typeof define.amd == "object")
         define("json.sortify", factory);
     else
         JSON.sortify = factory();
@@ -26,6 +29,6 @@ let code = `
 let transformed = babel.transform(code, babelOpts);
 
 try {
-    fs.mkdirSync(`${baseDir}/dist`, parseInt('0775', 8));
+    fs.mkdirSync(path.join(baseDir, 'dist'), parseInt('0775', 8));
 } catch (ignore) {}
-fs.writeFileSync(`${baseDir}/dist/JSON.sortify.js`, transformed.code);
+fs.writeFileSync(path.join(baseDir, 'dist', 'JSON.sortify.js'), transformed.code);
