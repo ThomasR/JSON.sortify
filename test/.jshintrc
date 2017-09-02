@@ -1,0 +1,6 @@
+{
+  "browser": true,
+  "mocha": true,
+
+  "-W008": true
+}

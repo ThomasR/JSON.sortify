@@ -19,12 +19,13 @@ let babelOpts = {
 
 let code = `
 (function(factory) {
-    if (typeof module !== 'undefined' && module.exports)
+    if (typeof module !== 'undefined' && module.exports) {
         module.exports = factory();
-    else if (typeof define == "function" && typeof define.amd == "object")
+    } else if (typeof define === "function" && typeof define.amd === "object") {
         define("json.sortify", factory);
-    else
+    } else {
         JSON.sortify = factory();
+    }
 })(function() {
     ${factory.replace(/\bmodule\s*\.\s*exports\s*=/, 'return ')}
 });`;
