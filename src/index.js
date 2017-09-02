@@ -29,7 +29,8 @@
 const sortKeys = o => {
     if (Array.isArray(o)) {
         return o.map(sortKeys);
-    } else if (o instanceof Object) {
+    }
+    if (o instanceof Object) {
         // put numeric keys first
         let numeric = [];
         let nonNumeric = [];
@@ -41,9 +42,7 @@ const sortKeys = o => {
             }
         });
         // do the rearrangement
-        return numeric.sort(function (a, b) {
-            return a - b;
-        }).concat(nonNumeric.sort()).reduce((result, key) => {
+        return numeric.sort((a, b) => a - b).concat(nonNumeric.sort()).reduce((result, key) => {
             result[key] = sortKeys(o[key]); // recurse!
             return result;
         }, {});

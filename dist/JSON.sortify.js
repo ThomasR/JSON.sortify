@@ -1,4 +1,4 @@
-"use strict";(function(factory){if(typeof module!=="undefined"&&module.exports)module.exports=factory();else if(typeof define=="function"&&typeof define.amd=="object")define("json.sortify",factory);else JSON.sortify=factory()})(function(){ /*!
+(function(a){typeof module!="undefined"&&module.exports?module.exports=a():typeof define=="function"&&typeof define.amd=="object"?define("json.sortify",a):JSON.sortify=a()})(function(){/*!
 *    Copyright 2015-2017 Thomas Rosenau
 *
 *    Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,4 +12,4 @@
 *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 *    See the License for the specific language governing permissions and
 *    limitations under the License.
-*/"use strict";var sortKeys=function sortKeys(o){if(Array.isArray(o)){return o.map(sortKeys)}else if(o instanceof Object){var _ret=function(){var numeric=[];var nonNumeric=[];Object.keys(o).forEach(function(key){if(/^(0|[1-9][0-9]*)$/.test(key)){numeric.push(+key)}else {nonNumeric.push(key)}});return {v:numeric.sort(function(a,b){return a-b}).concat(nonNumeric.sort()).reduce(function(result,key){result[key]=sortKeys(o[key]);return result},{})}}();if(typeof _ret==="object")return _ret.v}return o};var jsonStringify=JSON.stringify.bind(JSON);var sortify=function sortify(value,replacer,space){var nativeJson=jsonStringify(value,replacer,0);if(!nativeJson||nativeJson[0]!=="{"&&nativeJson[0]!=="["){return nativeJson}var cleanObj=JSON.parse(nativeJson);return jsonStringify(sortKeys(cleanObj),null,space)};return sortify});
+*/"use strict";var a=function(b){if(Array.isArray(b))return b.map(a);if(b instanceof Object){var c=[],d=[];return Object.keys(b).forEach(function(a){/^(0|[1-9][0-9]*)$/.test(a)?c.push(+a):d.push(a)}),c.sort(function(c,a){return c-a}).concat(d.sort()).reduce(function(c,d){return c[d]=a(b[d]),c},{})}return b},b=JSON.stringify.bind(JSON);return function sortify(c,d,e){var f=b(c,d,0);if(!f||f[0]!=="{"&&f[0]!=="[")return f;var g=JSON.parse(f);return b(a(g),null,e)}});

@@ -8,11 +8,14 @@ const baseDir = path.join(__dirname, '..');
 
 let factory = fs.readFileSync(path.join(baseDir, 'src', 'index.js'), 'utf-8');
 
-let babelOpts = JSON.parse(fs.readFileSync(path.join(baseDir, 'package.json'), 'utf-8')).babel;
-Object.assign(babelOpts, {
+let deps = JSON.parse(fs.readFileSync(path.join(baseDir, 'package.json'), 'utf-8')).devDependencies;
+let plugins = Object.keys(deps).filter(x => /^babel-plugin-/.test(x)).map(x => x.replace('babel-plugin-', ''));
+
+let babelOpts = {
+    plugins,
     minified: true,
     shouldPrintComment: c => c[0] === '!'
-});
+};
 
 let code = `
 (function(factory) {
