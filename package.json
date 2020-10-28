@@ -4,7 +4,7 @@
   "version": "2.2.2",
   "engines": {
     "node": ">=4.0.0",
-    "npm": "~1.0.20"
+    "npm": ">=1.0.20"
   },
   "author": {
     "name": "Thomas Rosenau",
